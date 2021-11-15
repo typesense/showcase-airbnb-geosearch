@@ -17,7 +17,7 @@ const typesense = new Typesense.Client({
     },
   ],
   apiKey: process.env.TYPESENSE_ADMIN_API_KEY,
-  connectionTimeoutSeconds: 5 * 60,
+  connectionTimeoutSeconds: 20 * 60,
 });
 
 async function indexData() {
@@ -72,7 +72,6 @@ async function indexData() {
       console.log(` Lines upto ${currentLine} ✅`);
       records = '';
     }
-    break;
   }
 
   if (records.length > 0) {
