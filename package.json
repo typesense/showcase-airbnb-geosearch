@@ -1,0 +1,43 @@
+{
+  "name": "showcase-airbnb-geosearch",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "start": "parcel index.html --port 3000",
+    "lint": "eslint .",
+    "lint:fix": "npm run lint -- --fix",
+    "typesenseServer": "docker run -i -p 8108:8108 -v$(pwd)/typesense-server-data/:/data typesense/typesense:0.22.0.rcs30 --data-dir /data --api-key=xyz --listen-port 8108 --enable-cors",
+    "transformData": "node scripts/transform_data.js",
+    "indexData": "node scripts/index_data.js",
+    "build": "parcel build index.html --public-url https://airbnb-geosearch.typesense.org"
+  },
+  "engines": {
+    "node": ">=14.0"
+  },
+  "devDependencies": {
+    "babel-eslint": "10.1.0",
+    "eslint": "7.25.0",
+    "eslint-config-prettier": "8.3.0",
+    "eslint-plugin-import": "2.22.1",
+    "eslint-plugin-prettier": "3.4.0",
+    "parcel-bundler": "1.12.5",
+    "prettier": "2.2.1",
+    "sass": "^1.32.12"
+  },
+  "dependencies": {
+    "@babel/runtime": "^7.16.3",
+    "@popperjs/core": "^2.10.2",
+    "bootstrap": "^4.5.2",
+    "cheerio": "^1.0.0-rc.10",
+    "csvtojson": "^2.0.10",
+    "dotenv": "^10.0.0",
+    "instantsearch.js": "^4.33.1",
+    "jquery": "^3.6.0",
+    "lodash": "^4.17.21",
+    "luxon": "^2.1.1",
+    "node-fetch": "^3.1.0",
+    "popper.js": "^1.16.1",
+    "typesense": "^1.0.2",
+    "typesense-instantsearch-adapter": "^2.2.0"
+  }
+}
