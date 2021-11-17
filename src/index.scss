@@ -1,0 +1,100 @@
+@import 'bootstrap';
+@import 'app';
+
+body * {
+  //border: 1px solid red;
+}
+
+.search-result-card {
+  min-height: 100px;
+
+  @media (min-width: 768px) {
+    min-height: 175px;
+  }
+}
+
+@media (min-width: 768px) {
+  #filters-section.d-md-block {
+    display: block !important;
+  }
+}
+
+a.clickable-search-term {
+  color: unset;
+  text-decoration-line: underline;
+  text-decoration-color: $gray-500;
+  -webkit-text-decoration-line: underline;
+  -webkit-text-decoration-color: $gray-500;
+  cursor: pointer;
+}
+
+mark {
+  color: unset;
+  background-color: rgba($gray-200, .7);
+  padding: 0 0.08em;
+}
+
+.ais-SearchBox-loadingIndicator {
+  position: absolute;
+  top: 21px;
+  right: 60px;
+}
+
+@media (max-width: 1200px) {
+  h1, .h1 {
+    font-size: calc(1.6rem + 1.2vw);
+  }
+}
+
+#sort-by {
+  max-width: 185px;
+}
+
+.ais-RefinementList-searchBox {
+  max-width: 250px;
+}
+
+#map {
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  position: fixed;
+
+  .ais-GeoSearch {
+    position: relative;
+  }
+
+  .ais-GeoSearch, .ais-GeoSearch-map {
+    height: 100%;
+  }
+
+  .ais-GeoSearch-control {
+    position: absolute;
+    top: .8rem;
+    left: 3.75rem;
+  }
+
+  .ais-GeoSearch-reset {
+    position: absolute;
+    bottom: 1.25rem;
+    left: 50%;
+    -webkit-transform: translateX(-50%);
+    transform: translateX(-50%);
+  }
+}
+
+#geosearch-ui {
+  position: relative;
+}
+
+#searchbox {
+  border-radius: 20px;
+  color: #fff;
+  text-align: center;
+  line-height: 50px;
+  box-shadow: 20px 5px 40px $primary,
+  0px 5px 40px $secondary,
+  -20px 5px 40px $primary;
+  background-image: linear-gradient(-90deg, $primary 0%, $secondary 47%, $primary 100%);
+}
