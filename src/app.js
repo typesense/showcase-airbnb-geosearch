@@ -113,12 +113,49 @@ const search = instantsearch({
 });
 
 window.initMap = function () {
+  let currentInfoWindow;
+
   search.addWidgets([
     geoSearch({
       container: '#map',
       googleReference: window.google,
       enableClearMapRefinement: false,
       enableRefineControl: false,
+      builtInMarker: {
+        createOptions(item) {
+          return {
+            title: item.name,
+          };
+        },
+        events: {
+          click({ event, item, marker, map }) {
+            console.log(item);
+            if (currentInfoWindow) {
+              currentInfoWindow.close();
+            }
+            currentInfoWindow = new window.google.maps.InfoWindow({
+              content: `
+                <div style="width: 300px;">
+                  <img src="${item.picture_url}" width="300" />
+                  <h6 class="mt-3 mb-1">${item.name}</h6>
+                  <div>by ${item.host_name}</div>
+                  <div class="mt-3"><strong>$${
+                    item.price
+                  }</strong> per night in <strong>${
+                item.neighbourhood_cleansed
+              }</strong></div>
+                  <div class="mt-3">${item.amenities.join(', ')}</div>
+                </div>
+              `,
+            });
+            currentInfoWindow.open({
+              anchor: marker,
+              map,
+              shouldFocus: false,
+            });
+          },
+        },
+      },
     }),
 
     configure({
