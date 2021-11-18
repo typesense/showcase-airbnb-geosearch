@@ -117,17 +117,20 @@ window.initMap = function () {
     geoSearch({
       container: '#map',
       googleReference: window.google,
+      enableClearMapRefinement: false,
+      enableRefineControl: false,
     }),
-    searchBox({
-      container: '#searchbox',
-      showSubmit: false,
-      showReset: false,
-      placeholder: 'type in a search term... ',
-      autofocus: true,
-      cssClasses: {
-        input: 'form-control',
-        loadingIcon: 'stroke-primary',
-      },
+
+    configure({
+      insideBoundingBox: [
+        [
+          34.45165702054374,
+          -117.62488725779188,
+          33.582023930285914,
+          -118.94324663279188,
+        ],
+      ],
+      hitsPerPage: 250,
     }),
 
     analytics({
@@ -153,13 +156,13 @@ window.initMap = function () {
           } else {
             statsText = `${nbHits.toLocaleString()} listings`;
           }
-          return `found ${statsText} ${
+          return `Found ${statsText} ${
             indexSize ? ` from ${indexSize.toLocaleString()}` : ''
           } in ${processingTimeMS}ms.`;
         },
       },
       cssClasses: {
-        text: 'text-white',
+        text: 'text-muted small',
       },
     }),
 
@@ -170,6 +173,7 @@ window.initMap = function () {
       searchablePlaceholder: 'Search amenities',
       showMore: true,
       showMoreLimit: 40,
+      sortBy: ['count:asc', 'name:asc'],
       cssClasses: {
         searchableInput: 'form-control form-control-sm mb-2 border-light-2',
         searchableSubmit: 'd-none',
@@ -216,10 +220,6 @@ window.initMap = function () {
     rangeSlider({
       container: '#price-slider',
       attribute: 'price',
-    }),
-
-    configure({
-      hitsPerPage: 250,
     }),
   ]);
 

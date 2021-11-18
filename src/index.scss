@@ -55,11 +55,8 @@ mark {
 }
 
 #map {
-  width: 100%;
   height: 100%;
-  top: 0;
-  left: 0;
-  position: fixed;
+  width: 100%;
 
   .ais-GeoSearch {
     position: relative;
@@ -84,17 +81,6 @@ mark {
   }
 }
 
-#geosearch-ui {
-  position: relative;
-}
-
-#searchbox {
-  border-radius: 20px;
-  color: #fff;
-  text-align: center;
-  line-height: 50px;
-  box-shadow: 20px 5px 40px $primary,
-  0px 5px 40px $secondary,
-  -20px 5px 40px $primary;
-  background-image: linear-gradient(-90deg, $primary 0%, $secondary 47%, $primary 100%);
+#map, #geosearch-ui {
+  height: 100vh;
 }
