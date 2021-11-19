@@ -1,6 +1,6 @@
-# AirBnB Geo Search
+# Airbnb Geo Search
 
-This is a demo that showcases Typesense's Geo Search features using a snapshot of AirBnB listings from [insideairbnb](http://insideairbnb.com/).
+This is a demo that showcases Typesense's Geo Search features using a snapshot of Airbnb listings from [insideairbnb](http://insideairbnb.com/).
 
 View it live here: https://airbnb-geosearch.typesense.org/
 
