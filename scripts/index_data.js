@@ -44,6 +44,7 @@ async function indexData() {
       },
       { name: 'coordinates', type: 'geopoint' },
     ],
+    default_sorting_field: 'number_of_reviews',
   });
 
   const fileStream = fs.createReadStream(DATA_FILE);
