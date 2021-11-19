@@ -198,7 +198,6 @@ window.initMap = function () {
       showMore: true,
       limit: 5,
       showMoreLimit: 40,
-      sortBy: ['count:asc', 'name:asc'],
       cssClasses: {
         searchableInput: 'form-control form-control-sm mb-2 border-light-2',
         searchableSubmit: 'd-none',
