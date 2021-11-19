@@ -116,7 +116,6 @@ window.initMap = function () {
         },
         events: {
           click({ event, item, marker, map }) {
-            console.log(item);
             if (currentInfoWindow) {
               currentInfoWindow.close();
             }
@@ -186,7 +185,7 @@ window.initMap = function () {
         },
       },
       cssClasses: {
-        text: 'text-muted small',
+        text: 'text-muted',
       },
     }),
 
