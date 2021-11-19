@@ -54,10 +54,16 @@ mark {
   max-width: 250px;
 }
 
-#map {
-  height: 100%;
-  width: 100%;
+#map, #geosearch-ui {
+  height: 100vh;
 
+  @media (max-width: 768px) {
+    height: 50vh;
+  }
+}
+
+
+#map {
   .ais-GeoSearch {
     position: relative;
   }
@@ -79,8 +85,4 @@ mark {
     -webkit-transform: translateX(-50%);
     transform: translateX(-50%);
   }
-}
-
-#map, #geosearch-ui {
-  height: 100vh;
 }

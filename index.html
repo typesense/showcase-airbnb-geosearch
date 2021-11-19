@@ -54,15 +54,24 @@
     <div id="geosearch-ui" class="container-fluid overflow-auto px-4">
       <div class="row mt-4">
         <div class="col-sm">
-          <h1>AirBnB GeoSearch</h1>
-          <div id="stats"></div>
-          <h5 class="mt-5">Price</h5>
+          <h1 class="mb-1">AirBnB GeoSearch</h1>
+          <div>Powered by
+            <a href="https://github.com/typesense/typesense" target="_blank" alt="Typesense" class="ml-1">
+              <img src="images/typesense.svg" width="114" height="25" />
+            </a>
+          </div>
+          <div class="text-muted mt-1">
+            <a role="button" data-toggle="modal" data-target="#aboutModal">About</a> •
+            <a href="https://github.com/typesense/showcase-airbnb-geosearch" target="_blank">Source Code</a>
+          </div>
+          <div id="stats" class="mt-sm-4 mt-3"></div>
+          <h5 class="mt-4 mt-sm-5">Price</h5>
           <div id="price-slider" class="px-3 pb-1"></div>
-          <h5 class="mt-5">Property Type</h5>
+          <h5 class="mt-4 mt-sm-5">Property Type</h5>
           <div id="property-type-refinement"></div>
-          <h5 class="mt-5">Amenities</h5>
+          <h5 class="mt-4 mt-sm-5">Amenities</h5>
           <div id="amenities-refinement"></div>
-          <h5 class="mt-5">Beds</h5>
+          <h5 class="mt-4 mt-sm-5">Beds</h5>
           <div id="beds-refinement" class="mb-5"></div>
         </div>
       </div>
@@ -85,7 +94,7 @@
       </div>
       <div class="modal-body">
         <p>
-          The search & browsing experience is powered by <a href="https://typesense.org" target="_blank">Typesense</a>
+          This browsing experience is powered by <a href="https://typesense.org" target="_blank">Typesense</a>
           which is
           a fast, <a href="https://github.com/typesense/typesense" target="_blank">open source</a> typo-tolerant
           search-engine. It is an open source alternative to Algolia and an easier-to-use alternative to

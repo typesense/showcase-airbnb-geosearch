@@ -7,19 +7,16 @@ import 'bootstrap';
 
 import instantsearch from 'instantsearch.js/es';
 import {
-  searchBox,
   geoSearch,
   configure,
   stats,
   analytics,
   refinementList,
   rangeInput,
-  ratingMenu,
   rangeSlider,
 } from 'instantsearch.js/es/widgets';
 import TypesenseInstantSearchAdapter from 'typesense-instantsearch-adapter';
 import { SearchClient as TypesenseSearchClient } from 'typesense'; // To get the total number of docs
-import images from '../images/*.*';
 
 let TYPESENSE_SERVER_CONFIG = {
   apiKey: process.env.TYPESENSE_SEARCH_ONLY_API_KEY, // Be sure to use an API key that only allows searches, in production
@@ -33,16 +30,6 @@ let TYPESENSE_SERVER_CONFIG = {
   numRetries: 8,
   useServerSideSearchCache: true,
 };
-
-// [2, 3].forEach(i => {
-//   if (process.env[`TYPESENSE_HOST_${i}`]) {
-//     TYPESENSE_SERVER_CONFIG.nodes.push({
-//       host: process.env[`TYPESENSE_HOST_${i}`],
-//       port: process.env.TYPESENSE_PORT,
-//       protocol: process.env.TYPESENSE_PROTOCOL,
-//     });
-//   }
-// });
 
 // Unfortunately, dynamic process.env keys don't work with parcel.js
 // So need to enumerate each key one by one
@@ -167,7 +154,7 @@ window.initMap = function () {
           -118.94324663279188,
         ],
       ],
-      hitsPerPage: 250,
+      hitsPerPage: 100,
     }),
 
     analytics({
@@ -209,6 +196,7 @@ window.initMap = function () {
       searchable: true,
       searchablePlaceholder: 'Search amenities',
       showMore: true,
+      limit: 5,
       showMoreLimit: 40,
       sortBy: ['count:asc', 'name:asc'],
       cssClasses: {
@@ -229,6 +217,7 @@ window.initMap = function () {
       searchable: true,
       searchablePlaceholder: 'Search amenities',
       showMore: true,
+      limit: 5,
       showMoreLimit: 40,
       cssClasses: {
         searchableInput: 'form-control form-control-sm mb-2 border-light-2',
@@ -262,17 +251,3 @@ window.initMap = function () {
 
   search.start();
 };
-
-function handleSearchTermClick(event) {
-  const $searchBox = $('#searchbox input[type=search]');
-  search.helper.clearRefinements();
-  $searchBox.val(event.currentTarget.textContent);
-  $searchBox.trigger('change');
-  search.helper.setQuery($searchBox.val()).search();
-}
-
-$(async function () {
-  const $searchBox = $('#searchbox input[type=search]');
-  // Handle example search terms
-  $('.clickable-search-term').on('click', handleSearchTermClick);
-});
