@@ -29,3 +29,4 @@ yarn-error.log*
 !/data/raw/sample-listings-*.csv
 
 typesense-server-data
+.parcel-cache
