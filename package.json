@@ -11,9 +11,6 @@
     "indexData": "node scripts/index_data.js",
     "build": "parcel build index.html --public-url https://airbnb-geosearch.typesense.org"
   },
-  "engines": {
-    "node": ">=14.0"
-  },
   "devDependencies": {
     "@parcel/packager-raw-url": "2.9.3",
     "@parcel/transformer-sass": "2.9.3",
