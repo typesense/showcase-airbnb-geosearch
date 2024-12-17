@@ -1,9 +1,10 @@
+@use 'sass:math';
 @import url('https://fonts.googleapis.com/css2?family=Arimo:ital,wght@0,400;0,500;1,400;1,500&family=Barlow:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
 $font-family-sans-serif: 'Barlow', sans-serif;
 
 $primary: #6e7b91;
-$secondary: #330C2F;
+$secondary: #330c2f;
 $gray-100: #e2e5e9;
 $gray-200: #c5cad3;
 $gray-300: #a8b0bd;
@@ -34,7 +35,7 @@ $input-btn-padding-x-sm: 0.9rem;
 $input-btn-padding-y-sm: 0.4rem;
 
 $input-padding-x: 1.3rem;
-$input-padding-y: .8rem;
+$input-padding-y: 0.8rem;
 
 $font-size-base: 0.95rem;
 $input-font-size: 1.4rem;
@@ -54,13 +55,17 @@ $badge-padding-y: 0.75em;
 $enable-rounded: false;
 $enable-responsive-font-sizes: true;
 
-@import "node_modules/bootstrap/scss/bootstrap";
+// https://github.com/twbs/bootstrap/issues/39028#issuecomment-2259475645
+@function abs($value) {
+  @return math.abs($value);
+}
+@import '~bootstrap/scss/bootstrap';
 
 .font-letter-spacing-tight {
   letter-spacing: -0.05rem;
 }
 
-input[type=search] {
+input[type='search'] {
   letter-spacing: -0.05em;
 }
 

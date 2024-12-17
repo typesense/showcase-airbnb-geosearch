@@ -30,7 +30,7 @@ a.clickable-search-term {
 
 mark {
   color: unset;
-  background-color: rgba($gray-200, .7);
+  background-color: rgba($gray-200, 0.7);
   padding: 0 0.08em;
 }
 
@@ -41,7 +41,8 @@ mark {
 }
 
 @media (max-width: 1200px) {
-  h1, .h1 {
+  h1,
+  .h1 {
     font-size: calc(1.6rem + 1.2vw);
   }
 }
@@ -54,7 +55,8 @@ mark {
   max-width: 250px;
 }
 
-#map, #geosearch-ui {
+#map,
+#geosearch-ui {
   height: 100vh;
 
   @media (max-width: 768px) {
@@ -62,19 +64,19 @@ mark {
   }
 }
 
-
 #map {
   .ais-GeoSearch {
     position: relative;
   }
 
-  .ais-GeoSearch, .ais-GeoSearch-map {
+  .ais-GeoSearch,
+  .ais-GeoSearch-map {
     height: 100%;
   }
 
   .ais-GeoSearch-control {
     position: absolute;
-    top: .8rem;
+    top: 0.8rem;
     left: 3.75rem;
   }
 
