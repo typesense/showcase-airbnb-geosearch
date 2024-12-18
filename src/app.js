@@ -83,10 +83,10 @@ const typesenseInstantsearchAdapter = new TypesenseInstantSearchAdapter({
   //  So you can pass any parameters supported by the search endpoint below.
   //  queryBy is required.
   additionalSearchParameters: {
-    queryBy: 'name,neighbourhood_cleansed',
-    dropTokensThreshold: 2,
-    typoTokensThreshold: 2,
-    numTypos: 1,
+    query_by: 'name,neighbourhood_cleansed',
+    drop_tokens_threshold: 2,
+    typo_tokens_threshold: 2,
+    num_typos: 1,
   },
   geoLocationField: 'coordinates',
 });
