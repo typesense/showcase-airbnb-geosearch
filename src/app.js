@@ -14,6 +14,8 @@ import {
   rangeInput,
   rangeSlider,
 } from 'instantsearch.js/es/widgets';
+import { history } from 'instantsearch.js/es/lib/routers';
+
 import TypesenseInstantSearchAdapter from 'typesense-instantsearch-adapter';
 import { SearchClient as TypesenseSearchClient } from 'typesense'; // To get the total number of docs
 
@@ -95,8 +97,30 @@ const searchClient = typesenseInstantsearchAdapter.searchClient;
 const search = instantsearch({
   searchClient,
   indexName: INDEX_NAME,
-  routing: true,
+  routing: {
+    router: history({ cleanUrlOnDispose: true }),
+  },
+  future: {
+    preserveSharedStateOnUnmount: true,
+  },
 });
+
+const analyticsMiddleware = () => {
+  return {
+    onStateChange({ uiState }) {
+      window.ga(
+        'set',
+        'page',
+        (window.location.pathname + window.location.search).toLowerCase()
+      );
+      window.ga('send', 'pageView');
+    },
+    subscribe() {},
+    unsubscribe() {},
+  };
+};
+
+search.use(analyticsMiddleware);
 
 const refinementListCssClasses = {
   searchableInput: 'form-control form-control-sm mb-2 border-light-2',
@@ -109,7 +133,8 @@ const refinementListCssClasses = {
   checkbox: 'me-2',
 };
 
-window.initMap = function () {
+async function initMap() {
+  await google.maps.importLibrary('maps');
   let currentInfoWindow;
 
   search.addWidgets([
@@ -162,17 +187,6 @@ window.initMap = function () {
         ],
       ],
       hitsPerPage: 100,
-    }),
-
-    analytics({
-      pushFunction(formattedParameters, state, results) {
-        window.ga(
-          'set',
-          'page',
-          (window.location.pathname + window.location.search).toLowerCase()
-        );
-        window.ga('send', 'pageView');
-      },
     }),
 
     stats({
@@ -238,4 +252,6 @@ window.initMap = function () {
   ]);
 
   search.start();
-};
+}
+
+initMap();
