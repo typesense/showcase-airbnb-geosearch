@@ -1,5 +1,15 @@
-@import 'bootstrap';
-@import 'app';
+@use 'bootstrap' as bs;
+@use 'app';
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  overflow: hidden;
+}
 
 body * {
   //border: 1px solid red;
@@ -22,15 +32,15 @@ body * {
 a.clickable-search-term {
   color: unset;
   text-decoration-line: underline;
-  text-decoration-color: $gray-500;
+  text-decoration-color: bs.$gray-500;
   -webkit-text-decoration-line: underline;
-  -webkit-text-decoration-color: $gray-500;
+  -webkit-text-decoration-color: bs.$gray-500;
   cursor: pointer;
 }
 
 mark {
   color: unset;
-  background-color: rgba($gray-200, 0.7);
+  background-color: rgba(bs.$gray-200, 0.7);
   padding: 0 0.08em;
 }
 

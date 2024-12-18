@@ -99,6 +99,17 @@ const search = instantsearch({
   routing: true,
 });
 
+const refinementListCssClasses = {
+  searchableInput: 'form-control form-control-sm mb-2 border-light-2',
+  searchableSubmit: 'd-none',
+  searchableReset: 'd-none',
+  showMore: 'btn btn-secondary btn-sm align-content-center',
+  list: 'list-unstyled',
+  count: 'badge text-bg-light ms-2',
+  label: 'd-flex align-items-center text-capitalize mb-2',
+  checkbox: 'me-2',
+};
+
 window.initMap = function () {
   let currentInfoWindow;
 
@@ -128,8 +139,8 @@ window.initMap = function () {
                   <div class="mt-3"><strong>$${
                     item.price
                   }</strong> per night in <strong>${
-                item.neighbourhood_cleansed
-              }</strong></div>
+                    item.neighbourhood_cleansed
+                  }</strong></div>
                   <div class="mt-3">${item.amenities.join(', ')}</div>
                 </div>
               `,
@@ -147,9 +158,7 @@ window.initMap = function () {
     configure({
       insideBoundingBox: [
         [
-          34.45165702054374,
-          -117.62488725779188,
-          33.582023930285914,
+          34.45165702054374, -117.62488725779188, 33.582023930285914,
           -118.94324663279188,
         ],
       ],
@@ -197,16 +206,7 @@ window.initMap = function () {
       showMore: true,
       limit: 5,
       showMoreLimit: 40,
-      cssClasses: {
-        searchableInput: 'form-control form-control-sm mb-2 border-light-2',
-        searchableSubmit: 'd-none',
-        searchableReset: 'd-none',
-        showMore: 'btn btn-secondary btn-sm align-content-center',
-        list: 'list-unstyled',
-        count: 'badge badge-light bg-light-2 ml-2',
-        label: 'd-flex align-items-center text-capitalize',
-        checkbox: 'mr-2',
-      },
+      cssClasses: refinementListCssClasses,
     }),
 
     refinementList({
@@ -217,16 +217,7 @@ window.initMap = function () {
       showMore: true,
       limit: 5,
       showMoreLimit: 40,
-      cssClasses: {
-        searchableInput: 'form-control form-control-sm mb-2 border-light-2',
-        searchableSubmit: 'd-none',
-        searchableReset: 'd-none',
-        showMore: 'btn btn-secondary btn-sm align-content-center',
-        list: 'list-unstyled',
-        count: 'badge badge-light bg-light-2 ml-2',
-        label: 'd-flex align-items-center text-capitalize',
-        checkbox: 'mr-2',
-      },
+      cssClasses: refinementListCssClasses,
     }),
 
     rangeInput({
