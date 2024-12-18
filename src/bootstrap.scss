@@ -3,7 +3,7 @@
 $font-family-sans-serif: 'Barlow', sans-serif;
 
 $primary: #6e7b91;
-$secondary: #330C2F;
+$secondary: #330c2f;
 $gray-100: #e2e5e9;
 $gray-200: #c5cad3;
 $gray-300: #a8b0bd;
@@ -15,6 +15,8 @@ $gray-800: #2c313a;
 $gray-900: #16191d;
 $black: #0b0c0e;
 
+$light: $gray-100;
+
 $text-muted: $gray-500;
 
 $link-decoration: underline;
@@ -24,7 +26,7 @@ $input-font-weight: 400;
 //$input-border-width: 1px;
 //$input-border-color: lighten($primary, 10%);
 //$input-focus-border-color: $black;
-//$input-btn-focus-box-shadow:  0 0 15px 0.2em rgba($input-focus-border-color, 0.1);
+$input-btn-focus-box-shadow: 0 0 0 0.2rem rgba(51, 12, 47, 0.251);
 
 $component-active-bg: $secondary;
 $custom-select-color: $gray-800;
@@ -34,7 +36,7 @@ $input-btn-padding-x-sm: 0.9rem;
 $input-btn-padding-y-sm: 0.4rem;
 
 $input-padding-x: 1.3rem;
-$input-padding-y: .8rem;
+$input-padding-y: 0.8rem;
 
 $font-size-base: 0.95rem;
 $input-font-size: 1.4rem;
@@ -54,13 +56,13 @@ $badge-padding-y: 0.75em;
 $enable-rounded: false;
 $enable-responsive-font-sizes: true;
 
-@import "node_modules/bootstrap/scss/bootstrap";
+@import 'bootstrap/scss/bootstrap';
 
 .font-letter-spacing-tight {
   letter-spacing: -0.05rem;
 }
 
-input[type=search] {
+input[type='search'] {
   letter-spacing: -0.05em;
 }
 

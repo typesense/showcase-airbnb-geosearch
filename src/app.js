@@ -2,7 +2,6 @@ import jQuery from 'jquery';
 
 window.$ = jQuery; // workaround for https://github.com/parcel-bundler/parcel/issues/333
 
-import 'popper.js';
 import 'bootstrap';
 
 import instantsearch from 'instantsearch.js/es';
@@ -15,6 +14,8 @@ import {
   rangeInput,
   rangeSlider,
 } from 'instantsearch.js/es/widgets';
+import { history } from 'instantsearch.js/es/lib/routers';
+
 import TypesenseInstantSearchAdapter from 'typesense-instantsearch-adapter';
 import { SearchClient as TypesenseSearchClient } from 'typesense'; // To get the total number of docs
 
@@ -84,10 +85,10 @@ const typesenseInstantsearchAdapter = new TypesenseInstantSearchAdapter({
   //  So you can pass any parameters supported by the search endpoint below.
   //  queryBy is required.
   additionalSearchParameters: {
-    queryBy: 'name,neighbourhood_cleansed',
-    dropTokensThreshold: 2,
-    typoTokensThreshold: 2,
-    numTypos: 1,
+    query_by: 'name,neighbourhood_cleansed',
+    drop_tokens_threshold: 2,
+    typo_tokens_threshold: 2,
+    num_typos: 1,
   },
   geoLocationField: 'coordinates',
 });
@@ -96,10 +97,44 @@ const searchClient = typesenseInstantsearchAdapter.searchClient;
 const search = instantsearch({
   searchClient,
   indexName: INDEX_NAME,
-  routing: true,
+  routing: {
+    router: history({ cleanUrlOnDispose: true }),
+  },
+  future: {
+    preserveSharedStateOnUnmount: true,
+  },
 });
 
-window.initMap = function () {
+const analyticsMiddleware = () => {
+  return {
+    onStateChange({ uiState }) {
+      window.ga(
+        'set',
+        'page',
+        (window.location.pathname + window.location.search).toLowerCase()
+      );
+      window.ga('send', 'pageView');
+    },
+    subscribe() {},
+    unsubscribe() {},
+  };
+};
+
+search.use(analyticsMiddleware);
+
+const refinementListCssClasses = {
+  searchableInput: 'form-control form-control-sm mb-2 border-light-2',
+  searchableSubmit: 'd-none',
+  searchableReset: 'd-none',
+  showMore: 'btn btn-secondary btn-sm align-content-center',
+  list: 'list-unstyled',
+  count: 'badge text-bg-light ms-2',
+  label: 'd-flex align-items-center text-capitalize mb-2',
+  checkbox: 'me-2',
+};
+
+async function initMap() {
+  await google.maps.importLibrary('maps');
   let currentInfoWindow;
 
   search.addWidgets([
@@ -128,8 +163,8 @@ window.initMap = function () {
                   <div class="mt-3"><strong>$${
                     item.price
                   }</strong> per night in <strong>${
-                item.neighbourhood_cleansed
-              }</strong></div>
+                    item.neighbourhood_cleansed
+                  }</strong></div>
                   <div class="mt-3">${item.amenities.join(', ')}</div>
                 </div>
               `,
@@ -147,24 +182,11 @@ window.initMap = function () {
     configure({
       insideBoundingBox: [
         [
-          34.45165702054374,
-          -117.62488725779188,
-          33.582023930285914,
+          34.45165702054374, -117.62488725779188, 33.582023930285914,
           -118.94324663279188,
         ],
       ],
       hitsPerPage: 100,
-    }),
-
-    analytics({
-      pushFunction(formattedParameters, state, results) {
-        window.ga(
-          'set',
-          'page',
-          (window.location.pathname + window.location.search).toLowerCase()
-        );
-        window.ga('send', 'pageView');
-      },
     }),
 
     stats({
@@ -197,16 +219,7 @@ window.initMap = function () {
       showMore: true,
       limit: 5,
       showMoreLimit: 40,
-      cssClasses: {
-        searchableInput: 'form-control form-control-sm mb-2 border-light-2',
-        searchableSubmit: 'd-none',
-        searchableReset: 'd-none',
-        showMore: 'btn btn-secondary btn-sm align-content-center',
-        list: 'list-unstyled',
-        count: 'badge badge-light bg-light-2 ml-2',
-        label: 'd-flex align-items-center text-capitalize',
-        checkbox: 'mr-2',
-      },
+      cssClasses: refinementListCssClasses,
     }),
 
     refinementList({
@@ -217,16 +230,7 @@ window.initMap = function () {
       showMore: true,
       limit: 5,
       showMoreLimit: 40,
-      cssClasses: {
-        searchableInput: 'form-control form-control-sm mb-2 border-light-2',
-        searchableSubmit: 'd-none',
-        searchableReset: 'd-none',
-        showMore: 'btn btn-secondary btn-sm align-content-center',
-        list: 'list-unstyled',
-        count: 'badge badge-light bg-light-2 ml-2',
-        label: 'd-flex align-items-center text-capitalize',
-        checkbox: 'mr-2',
-      },
+      cssClasses: refinementListCssClasses,
     }),
 
     rangeInput({
@@ -248,4 +252,6 @@ window.initMap = function () {
   ]);
 
   search.start();
-};
+}
+
+initMap();

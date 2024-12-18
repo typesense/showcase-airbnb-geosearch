@@ -1,3 +1,5 @@
+@use 'bootstrap' as bs;
+
 html {
   scroll-behavior: smooth;
 }
@@ -6,16 +8,17 @@ body {
   letter-spacing: 0.02rem;
 }
 
-input[type="search"]::-webkit-search-cancel-button {
+input[type='search']::-webkit-search-cancel-button {
   display: none;
 }
 
-input[type="search"]:focus::-webkit-search-cancel-button {
+input[type='search']:focus::-webkit-search-cancel-button {
   display: none;
 }
 
 .ais-CurrentRefinements-item {
-  .ais-CurrentRefinements-label,.ais-CurrentRefinements-category {
+  .ais-CurrentRefinements-label,
+  .ais-CurrentRefinements-category {
     display: block;
     text-align: left;
   }
@@ -31,31 +34,31 @@ input[type="search"]:focus::-webkit-search-cancel-button {
 .ais-RangeSlider .rheostat {
   overflow: visible;
   margin-top: 40px;
-  margin-bottom: 40px
+  margin-bottom: 40px;
 }
 
 .ais-RangeSlider .rheostat-background {
   height: 6px;
   top: 0;
-  width: 100%
+  width: 100%;
 }
 
 .ais-RangeSlider .rheostat-handle {
   margin-left: -12px;
-  top: -7px
+  top: -7px;
 }
 
 .ais-RangeSlider .rheostat-background {
   position: relative;
   background-color: #fff;
-  border: 1px solid #aaa
+  border: 1px solid #aaa;
 }
 
 .ais-RangeSlider .rheostat-progress {
   position: absolute;
   top: 1px;
   height: 4px;
-  background-color: $primary
+  background-color: bs.$primary;
 }
 
 .rheostat-handle {
@@ -67,7 +70,7 @@ input[type="search"]:focus::-webkit-search-cancel-button {
   border: 1px solid #333;
   border-radius: 50%;
   cursor: -webkit-grab;
-  cursor: grab
+  cursor: grab;
 }
 
 .rheostat-marker {
@@ -75,25 +78,26 @@ input[type="search"]:focus::-webkit-search-cancel-button {
   position: absolute;
   width: 1px;
   height: 5px;
-  background-color: #aaa
+  background-color: #aaa;
 }
 
 .rheostat-marker--large {
-  height: 9px
+  height: 9px;
 }
 
 .rheostat-value {
-  padding-top: 15px
+  padding-top: 15px;
 }
 
-.rheostat-tooltip, .rheostat-value {
+.rheostat-tooltip,
+.rheostat-value {
   margin-left: 50%;
   position: absolute;
   text-align: center;
   -webkit-transform: translateX(-50%);
-  transform: translateX(-50%)
+  transform: translateX(-50%);
 }
 
 .rheostat-tooltip {
-  top: -22px
+  top: -22px;
 }
