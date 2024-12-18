@@ -40,7 +40,6 @@
     "lodash": "^4.17.21",
     "luxon": "^3.5.0",
     "node-fetch": "^3.3.2",
-    "popper.js": "^1.16.1",
     "typesense": "^1.8.2",
     "typesense-instantsearch-adapter": "^2.8.0"
   }
