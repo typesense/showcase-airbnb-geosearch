@@ -9,7 +9,7 @@
     "typesenseServer": "docker run -i -p 8108:8108 -v$(pwd)/typesense-server-data/:/data typesense/typesense:0.22.0.rcs30 --data-dir /data --api-key=xyz --listen-port 8108 --enable-cors",
     "transformData": "node scripts/transform_data.js",
     "indexData": "node scripts/index_data.js",
-    "build": "parcel build index.html --public-url https://airbnb-geosearch.typesense.org"
+    "build": "parcel build index.html"
   },
   "devDependencies": {
     "@parcel/packager-raw-url": "2.13.3",
