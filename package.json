@@ -30,6 +30,7 @@
   },
   "dependencies": {
     "@babel/runtime": "^7.26.0",
+    "@googlemaps/js-api-loader": "^1.16.8",
     "@popperjs/core": "^2.11.8",
     "bootstrap": "^5.3.3",
     "cheerio": "^1.0.0-rc.10",

@@ -18,6 +18,7 @@ import { history } from 'instantsearch.js/es/lib/routers';
 
 import TypesenseInstantSearchAdapter from 'typesense-instantsearch-adapter';
 import { SearchClient as TypesenseSearchClient } from 'typesense'; // To get the total number of docs
+import { Loader } from '@googlemaps/js-api-loader';
 
 let TYPESENSE_SERVER_CONFIG = {
   apiKey: process.env.TYPESENSE_SEARCH_ONLY_API_KEY, // Be sure to use an API key that only allows searches, in production
@@ -133,29 +134,35 @@ const refinementListCssClasses = {
   checkbox: 'me-2',
 };
 
-async function initMap() {
-  await google.maps.importLibrary('maps');
-  let currentInfoWindow;
+const loader = new Loader({
+  apiKey: 'AIzaSyDgxtPwK4mBkmolj-GFS_KKvAhRij5OBa0',
+  version: 'weekly',
+});
 
-  search.addWidgets([
-    geoSearch({
-      container: '#map',
-      googleReference: window.google,
-      enableClearMapRefinement: false,
-      enableRefineControl: false,
-      builtInMarker: {
-        createOptions(item) {
-          return {
-            title: item.name,
-          };
-        },
-        events: {
-          click({ event, item, marker, map }) {
-            if (currentInfoWindow) {
-              currentInfoWindow.close();
-            }
-            currentInfoWindow = new window.google.maps.InfoWindow({
-              content: `
+loader
+  .importLibrary('maps')
+  .then(() => {
+    let currentInfoWindow;
+
+    search.addWidgets([
+      geoSearch({
+        container: '#map',
+        googleReference: window.google,
+        enableClearMapRefinement: false,
+        enableRefineControl: false,
+        builtInMarker: {
+          createOptions(item) {
+            return {
+              title: item.name,
+            };
+          },
+          events: {
+            click({ event, item, marker, map }) {
+              if (currentInfoWindow) {
+                currentInfoWindow.close();
+              }
+              currentInfoWindow = new window.google.maps.InfoWindow({
+                content: `
                 <div style="width: 300px;">
                   <img src="${item.picture_url}" width="300" />
                   <h6 class="mt-3 mb-1">${item.name}</h6>
@@ -168,90 +175,91 @@ async function initMap() {
                   <div class="mt-3">${item.amenities.join(', ')}</div>
                 </div>
               `,
-            });
-            currentInfoWindow.open({
-              anchor: marker,
-              map,
-              shouldFocus: false,
-            });
+              });
+              currentInfoWindow.open({
+                anchor: marker,
+                map,
+                shouldFocus: false,
+              });
+            },
           },
         },
-      },
-    }),
+      }),
 
-    configure({
-      insideBoundingBox: [
-        [
-          34.45165702054374, -117.62488725779188, 33.582023930285914,
-          -118.94324663279188,
+      configure({
+        insideBoundingBox: [
+          [
+            34.45165702054374, -117.62488725779188, 33.582023930285914,
+            -118.94324663279188,
+          ],
         ],
-      ],
-      hitsPerPage: 100,
-    }),
+        hitsPerPage: 100,
+      }),
 
-    stats({
-      container: '#stats',
-      templates: {
-        text: ({ nbHits, hasNoResults, hasOneResult, processingTimeMS }) => {
-          let statsText = '';
-          if (hasNoResults) {
-            statsText = 'no listings';
-          } else if (hasOneResult) {
-            statsText = '1 listing';
-          } else {
-            statsText = `${nbHits.toLocaleString()} listings`;
-          }
-          return `Found ${statsText} ${
-            indexSize ? ` from ${indexSize.toLocaleString()}` : ''
-          } in ${processingTimeMS}ms.`;
+      stats({
+        container: '#stats',
+        templates: {
+          text: ({ nbHits, hasNoResults, hasOneResult, processingTimeMS }) => {
+            let statsText = '';
+            if (hasNoResults) {
+              statsText = 'no listings';
+            } else if (hasOneResult) {
+              statsText = '1 listing';
+            } else {
+              statsText = `${nbHits.toLocaleString()} listings`;
+            }
+            return `Found ${statsText} ${
+              indexSize ? ` from ${indexSize.toLocaleString()}` : ''
+            } in ${processingTimeMS}ms.`;
+          },
         },
-      },
-      cssClasses: {
-        text: 'text-muted',
-      },
-    }),
+        cssClasses: {
+          text: 'text-muted',
+        },
+      }),
 
-    refinementList({
-      container: '#amenities-refinement',
-      attribute: 'amenities',
-      searchable: true,
-      searchablePlaceholder: 'Search amenities',
-      showMore: true,
-      limit: 5,
-      showMoreLimit: 40,
-      cssClasses: refinementListCssClasses,
-    }),
+      refinementList({
+        container: '#amenities-refinement',
+        attribute: 'amenities',
+        searchable: true,
+        searchablePlaceholder: 'Search amenities',
+        showMore: true,
+        limit: 5,
+        showMoreLimit: 40,
+        cssClasses: refinementListCssClasses,
+      }),
 
-    refinementList({
-      container: '#property-type-refinement',
-      attribute: 'property_type',
-      searchable: true,
-      searchablePlaceholder: 'Search amenities',
-      showMore: true,
-      limit: 5,
-      showMoreLimit: 40,
-      cssClasses: refinementListCssClasses,
-    }),
+      refinementList({
+        container: '#property-type-refinement',
+        attribute: 'property_type',
+        searchable: true,
+        searchablePlaceholder: 'Search amenities',
+        showMore: true,
+        limit: 5,
+        showMoreLimit: 40,
+        cssClasses: refinementListCssClasses,
+      }),
 
-    rangeInput({
-      container: '#beds-refinement',
-      attribute: 'beds',
-      cssClasses: {
-        form: 'form',
-        input: 'form-control form-control-sm form-control-secondary',
-        submit:
-          'btn btn-sm btn-secondary ml-2 border border-secondary border-width-2',
-        separator: 'text-muted mx-2',
-      },
-    }),
+      rangeInput({
+        container: '#beds-refinement',
+        attribute: 'beds',
+        cssClasses: {
+          form: 'form',
+          input: 'form-control form-control-sm form-control-secondary',
+          submit:
+            'btn btn-sm btn-secondary ml-2 border border-secondary border-width-2',
+          separator: 'text-muted mx-2',
+        },
+      }),
 
-    rangeSlider({
-      container: '#price-slider',
-      attribute: 'price',
-    }),
-  ]);
+      rangeSlider({
+        container: '#price-slider',
+        attribute: 'price',
+      }),
+    ]);
 
-  search.start();
-}
-
-initMap();
+    search.start();
+  })
+  .catch((e) => {
+    console.warn('Cannot load the Google Map API!');
+  });
